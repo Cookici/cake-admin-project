@@ -1,0 +1,15 @@
+server:
+  port: 8090
+
+datasource:
+  config-path: C:/Users/63283/lrh
+
+mybatis-plus:
+  mapper-locations: classpath:xml/*.xml
+  configuration:
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+
+spring:
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
