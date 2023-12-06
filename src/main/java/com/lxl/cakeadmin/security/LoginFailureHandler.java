@@ -28,7 +28,7 @@ public class LoginFailureHandler implements AuthenticationFailureHandler {
     public void onAuthenticationFailure(HttpServletRequest request, HttpServletResponse response, AuthenticationException exception) throws IOException {
         response.setContentType("application/json;charset=UTF-8");
         ServletOutputStream outputStream = response.getOutputStream();
-        Result<String> result = Result.fail("登录失败").message("Bad credentials".equals(exception.getMessage()) ? "用户名或密码不正确" : exception.getMessage());
+        Result<Object> result = Result.fail().message("Bad credentials".equals(exception.getMessage()) ? "用户名或密码不正确" : exception.getMessage());
         outputStream.write(JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();

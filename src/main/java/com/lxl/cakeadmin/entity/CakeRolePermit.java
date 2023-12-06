@@ -10,30 +10,30 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel(description = "cake_product_item")
+@ApiModel(description = "cake_role_permit")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-@TableName(value = "cake_product_item")
-public class CakeProductItem {
+@TableName(value = "cake_role_permit")
+public class CakeRolePermit {
     /**
      * 自增ID
      */
-    @TableId(value = "product_item_id", type = IdType.INPUT)
+    @TableId(value = "role_permit_id", type = IdType.INPUT)
     @ApiModelProperty(value = "自增ID")
-    private Long productItemId;
+    private Long rolePermitId;
 
     /**
-     * 蛋糕ID
+     * 权限ID
      */
-    @TableField(value = "cake_product_id")
-    @ApiModelProperty(value = "蛋糕ID")
-    private Long cakeProductId;
+    @TableField(value = "cake_permit_id")
+    @ApiModelProperty(value = "权限ID")
+    private Long cakePermitId;
 
     /**
-     * 配料ID
+     * 角色ID
      */
-    @TableField(value = "cake_item_id")
-    @ApiModelProperty(value = "配料ID")
-    private Long cakeItemId;
+    @TableField(value = "cake_role_id")
+    @ApiModelProperty(value = "角色ID")
+    private Integer cakeRoleId;
 }

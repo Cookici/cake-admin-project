@@ -1,5 +1,5 @@
 server:
-  port: 8090
+  port: 9000
 
 datasource:
   config-path: C:/Users/63283/lrh

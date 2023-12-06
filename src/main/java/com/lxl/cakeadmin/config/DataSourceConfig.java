@@ -44,7 +44,7 @@ public class DataSourceConfig implements BeanPostProcessor, EnvironmentAware {
         if (bean instanceof MybatisPlusAutoConfiguration) {
             try {
                 File file = new File(configPath + "/db.json");
-                System.out.println("file ===> " + file.getAbsolutePath());
+                log.info("找到数据库配置json文件 ===> " + file.getAbsolutePath());
                 String config = FileUtils.readFileToString(file, StandardCharsets.UTF_8);
                 JSONObject configJson = JSON.parseObject(config);
                 environment.getSystemProperties().put("spring.datasource.type", "com.alibaba.druid.pool.DruidDataSource");
@@ -53,7 +53,7 @@ public class DataSourceConfig implements BeanPostProcessor, EnvironmentAware {
                 environment.getSystemProperties().put("spring.datasource.username", configJson.getString("username"));
                 environment.getSystemProperties().put("spring.datasource.password", configJson.getString("password"));
             } catch (IOException e) {
-                log.error("配置MybatisPlusAutoConfiguration失败,原以为： =====> {}", e.getMessage());
+                log.error("配置MybatisPlusAutoConfiguration失败,原因为： =====> {}", e.getMessage());
                 throw new RuntimeException(e);
             }
         }

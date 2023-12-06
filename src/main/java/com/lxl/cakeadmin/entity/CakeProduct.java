@@ -39,13 +39,6 @@ public class CakeProduct {
     private Long cakeProductPrice;
 
     /**
-     * 标签
-     */
-    @TableField(value = "`label`")
-    @ApiModelProperty(value = "标签")
-    private String label;
-
-    /**
      * 创建时间
      */
     @TableField(value = "create_time")

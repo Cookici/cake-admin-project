@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lxl.cakeadmin.mapper.CakeRolePermitMapper">
+  <resultMap id="BaseResultMap" type="com.lxl.cakeadmin.entity.CakeRolePermit">
+    <!--@mbg.generated-->
+    <!--@Table cake_role_permit-->
+    <id column="role_permit_id" jdbcType="BIGINT" property="rolePermitId" />
+    <result column="cake_permit_id" jdbcType="BIGINT" property="cakePermitId" />
+    <result column="cake_role_id" jdbcType="INTEGER" property="cakeRoleId" />
+  </resultMap>
+  <sql id="Base_Column_List">
+    <!--@mbg.generated-->
+    role_permit_id, cake_permit_id, cake_role_id
+  </sql>
+</mapper>

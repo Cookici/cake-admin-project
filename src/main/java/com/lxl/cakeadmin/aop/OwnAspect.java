@@ -39,19 +39,19 @@ public class OwnAspect {
 
 
     @Before("judgePointCut() && @annotation(own)")
-    public void beforeMethod(JoinPoint point,Own own) throws Throwable {
+    public void beforeMethod(JoinPoint point, Own own) throws Throwable {
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
-        String userName = request.getParameter("userName");
+        String username = request.getParameter("username");
         String token = request.getHeader("Authorization");
         Claims claims = jwtUtils.getClaimsByToken(token);
         String subject = claims.getSubject();
-        log.info("subject and username ====> {} , {}", subject, userName);
+        log.info("subject and username ====> {} , {}", subject, username);
 
-        if (!Objects.equals(subject, userName)) {
+        if (!Objects.equals(subject, username)) {
             throw new AccessDeniedException("权限不足");
         }
         point.getSignature();
-        log.info("执行通过 ====> {}", point.getSignature());
+        log.info("敏感操作执行通过 ====> {},{}", username, point.getSignature());
     }
 
 }

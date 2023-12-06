@@ -13,7 +13,12 @@ public interface WhiteList {
 
     String[] URL_WHITELIST = {
             "/login",
-            "/logout"
+            "/logout",
+            "/favicon.ico",
+            "/swagger-ui/*",
+            "/swagger-resources/**",
+            "/v3/api-docs",
+            "/webjars/**"
     };
 
 }

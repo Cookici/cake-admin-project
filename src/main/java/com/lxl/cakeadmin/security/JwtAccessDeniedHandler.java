@@ -29,7 +29,7 @@ public class JwtAccessDeniedHandler implements AccessDeniedHandler {
         httpServletResponse.setContentType("application/json;charset=UTF-8");
         httpServletResponse.setStatus(HttpServletResponse.SC_FORBIDDEN);
         ServletOutputStream outputStream = httpServletResponse.getOutputStream();
-        Result<String> result = Result.fail(e.getMessage()).code(403).message("无权进行该操纵");
+        Result<String> result = Result.fail("无权进行该操纵").code(403).message(e.getMessage());
         outputStream.write(JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();

@@ -41,16 +41,16 @@ public class CakeUser {
     /**
      * 用户昵称
      */
-    @TableField(value = "cake_user_nicke_name")
+    @TableField(value = "cake_user_nick_name")
     @ApiModelProperty(value = "用户昵称")
-    private String cakeUserNickeName;
+    private String cakeUserNickName;
 
     /**
-     * 用户权限
+     * 用户角色ID
      */
-    @TableField(value = "cake_user_authority")
-    @ApiModelProperty(value = "用户权限")
-    private String cakeUserAuthority;
+    @TableField(value = "cake_role_id")
+    @ApiModelProperty(value = "用户角色ID")
+    private Integer cakeRoleId;
 
     /**
      * 用户电话

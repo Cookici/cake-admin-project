@@ -7,8 +7,8 @@
     <id column="cake_user_id" jdbcType="BIGINT" property="cakeUserId" />
     <result column="cake_user_username" jdbcType="VARCHAR" property="cakeUserUsername" />
     <result column="cake_user_password" jdbcType="VARCHAR" property="cakeUserPassword" />
-    <result column="cake_user_nicke_name" jdbcType="VARCHAR" property="cakeUserNickeName" />
-    <result column="cake_user_authority" jdbcType="VARCHAR" property="cakeUserAuthority" />
+    <result column="cake_user_nick_name" jdbcType="VARCHAR" property="cakeUserNickName" />
+    <result column="cake_role_id" jdbcType="INTEGER" property="cakeRoleId" />
     <result column="cake_user_phone" jdbcType="VARCHAR" property="cakeUserPhone" />
     <result column="cake_user_ip" jdbcType="VARCHAR" property="cakeUserIp" />
     <result column="cake_user_level" jdbcType="INTEGER" property="cakeUserLevel" />
@@ -17,7 +17,7 @@
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    cake_user_id, cake_user_username, cake_user_password, cake_user_nicke_name, cake_user_authority, 
+    cake_user_id, cake_user_username, cake_user_password, cake_user_nick_name, cake_role_id, 
     cake_user_phone, cake_user_ip, cake_user_level, create_time, cake_user_status
   </sql>
 </mapper>

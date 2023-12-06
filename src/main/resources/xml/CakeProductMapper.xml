@@ -7,12 +7,11 @@
     <id column="cake_product_id" jdbcType="BIGINT" property="cakeProductId" />
     <result column="cake_product_name" jdbcType="VARCHAR" property="cakeProductName" />
     <result column="cake_product_price" jdbcType="BIGINT" property="cakeProductPrice" />
-    <result column="label" jdbcType="VARCHAR" property="label" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    cake_product_id, cake_product_name, cake_product_price, `label`, create_time, update_time
+    cake_product_id, cake_product_name, cake_product_price, create_time, update_time
   </sql>
 </mapper>

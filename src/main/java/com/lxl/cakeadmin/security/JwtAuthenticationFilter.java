@@ -1,16 +1,22 @@
 package com.lxl.cakeadmin.security;
 
 
+import com.alibaba.fastjson2.JSON;
+import com.lxl.cakeadmin.entity.CakeUser;
+import com.lxl.cakeadmin.service.CakeUserService;
 import com.lxl.cakeadmin.utils.JwtUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
+import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -18,6 +24,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.List;
 
 /**
  * @ProjectName: shixun-blog
@@ -34,6 +41,14 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Autowired
     private JwtUtils jwtUtils;
 
+    @Autowired
+    private CakeUserService cakeUserService;
+
+    @Autowired
+    private UserDetailsService userDetailsService;
+
+    private static AntPathMatcher pathMatcher;
+
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -42,11 +57,13 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain) throws IOException, ServletException {
+
+        log.info("JwtAuthenticationFilter ===> 开始过滤");
+
         String jwt = request.getHeader(jwtUtils.getHeader());
-        boolean judge = Arrays.asList(WhiteList.URL_WHITELIST).contains(request.getRequestURI());
-        log.info("request.getRequestURI() ==> {}", request.getRequestURI());
-        if (judge) {
-            log.info("白名单url");
+        String requestUri = request.getRequestURI();
+        if (isUrlAllowed(requestUri)) {
+            log.info("白名单uri ===> {}", requestUri);
             chain.doFilter(request, response);
             return;
         }
@@ -59,10 +76,27 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
             throw new JwtException("token已过期");
         }
         String username = claim.getSubject();
-        log.info("用户-{}，正在登陆！", username);
+
+        CakeUser cakeUser = cakeUserService.selectUserByUsername(username);
+        List<GrantedAuthority> userAuthority = userDetailsService.getUserAuthority(cakeUser);
+
         UsernamePasswordAuthenticationToken usernamePasswordAuthenticationToken
-                = new UsernamePasswordAuthenticationToken(username, null, null);
+                = new UsernamePasswordAuthenticationToken(username, null, userAuthority);
         SecurityContextHolder.getContext().setAuthentication(usernamePasswordAuthenticationToken);
         chain.doFilter(request, response);
     }
+
+
+    public static boolean isUrlAllowed(String url) {
+        if (pathMatcher == null) {
+            pathMatcher = new AntPathMatcher();
+        }
+        for (String pattern : WhiteList.URL_WHITELIST) {
+            if (pathMatcher.match(pattern, url)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
 }
