@@ -22,7 +22,7 @@ import java.util.Date;
 @Configuration
 public class JwtUtils {
     private static final long EXPIRE = 6 * 600;
-    private static final String SECRET = "zwyspringsecurity";
+    private static final String SECRET = "lrhspringsecurity";
     private String header = "Authorization";
 
 

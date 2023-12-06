@@ -12,7 +12,8 @@ package com.lxl.cakeadmin.security;
 public interface WhiteList {
 
     String[] URL_WHITELIST = {
-
+            "/login",
+            "/logout"
     };
 
 }
