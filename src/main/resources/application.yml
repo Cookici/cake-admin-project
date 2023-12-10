@@ -19,9 +19,9 @@ spring:
 
   cloud:
     alicloud:
-      access-key:
-      secret-key:
+      access-key: LTAI5tDr3Agn48iZA5GgCwhu
+      secret-key: w0oWP0dMRrznJWvOjbVMEkYxrLhpK3
       oss:
-          endpoint:
-          bucket:
+          endpoint: oss-cn-beijing.aliyuncs.com
+          bucket: lrh-cake-project
 
