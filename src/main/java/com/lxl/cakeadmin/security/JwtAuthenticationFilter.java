@@ -1,13 +1,12 @@
 package com.lxl.cakeadmin.security;
 
 
-import com.alibaba.fastjson2.JSON;
 import com.lxl.cakeadmin.entity.CakeUser;
 import com.lxl.cakeadmin.service.CakeUserService;
 import com.lxl.cakeadmin.utils.JwtUtils;
+import com.lxl.cakeadmin.utils.MatchUtils;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
@@ -16,15 +15,14 @@ import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.web.authentication.www.BasicAuthenticationFilter;
 import org.springframework.stereotype.Component;
-import org.springframework.util.AntPathMatcher;
 
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
-import java.util.Arrays;
 import java.util.List;
+
 
 /**
  * @ProjectName: shixun-blog
@@ -47,8 +45,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     @Autowired
     private UserDetailsService userDetailsService;
 
-    private static AntPathMatcher pathMatcher;
-
 
     public JwtAuthenticationFilter(AuthenticationManager authenticationManager) {
         super(authenticationManager);
@@ -62,7 +58,7 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
 
         String jwt = request.getHeader(jwtUtils.getHeader());
         String requestUri = request.getRequestURI();
-        if (isUrlAllowed(requestUri)) {
+        if (MatchUtils.isMatch(requestUri, WhiteList.URL_WHITELIST)) {
             log.info("白名单uri ===> {}", requestUri);
             chain.doFilter(request, response);
             return;
@@ -87,16 +83,6 @@ public class JwtAuthenticationFilter extends BasicAuthenticationFilter {
     }
 
 
-    public static boolean isUrlAllowed(String url) {
-        if (pathMatcher == null) {
-            pathMatcher = new AntPathMatcher();
-        }
-        for (String pattern : WhiteList.URL_WHITELIST) {
-            if (pathMatcher.match(pattern, url)) {
-                return true;
-            }
-        }
-        return false;
-    }
+
 
 }

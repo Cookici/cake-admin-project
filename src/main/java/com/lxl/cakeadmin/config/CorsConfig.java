@@ -3,6 +3,7 @@ package com.lxl.cakeadmin.config;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.web.cors.CorsConfiguration;
 import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
 import org.springframework.web.filter.CorsFilter;
@@ -30,12 +31,14 @@ public class CorsConfig {
         corsConfiguration.addAllowedHeader("*");
         // 允许哪个方法进行跨域
         corsConfiguration.addAllowedMethod("*");
+        corsConfiguration.addAllowedMethod(HttpMethod.OPTIONS);
         // 允许哪个请求来源进行跨域
         corsConfiguration.addAllowedOriginPattern("*");
         //跨域访问允许访问的响应头的内容 不设置无法返回token
         corsConfiguration.addExposedHeader("*");
         // 是否允许携带cookie进行跨域
-        corsConfiguration.setAllowCredentials(false);
+        corsConfiguration.setAllowCredentials(true);
+
 
         source.registerCorsConfiguration("/**", corsConfiguration);
         return new CorsFilter(source);

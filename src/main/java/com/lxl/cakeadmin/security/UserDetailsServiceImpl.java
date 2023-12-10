@@ -10,6 +10,7 @@ import com.lxl.cakeadmin.mapper.CakeRolePermitMapper;
 import com.lxl.cakeadmin.service.CakePermitService;
 import com.lxl.cakeadmin.service.CakeRolePermitService;
 import com.lxl.cakeadmin.service.CakeUserService;
+import com.lxl.cakeadmin.utils.MatchUtils;
 import lombok.extern.slf4j.Slf4j;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -55,10 +56,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
             throw new UsernameNotFoundException("用户名或密码错误");
         }
 
-//        if (!cakeUser.getCakeUserAuthority().contains(Constant.ADMIN)) {
-//            log.error("当前账号无法登录后台");
-//            throw new AccessDeniedException("当前账号无法登录后台");
-//        }
+        if (!MatchUtils.isMatch(cakeUser.getCakeRoleId(), WhiteList.ROLE_WHITELIST)) {
+            log.error("当前账号无法登录后台");
+            throw new AccessDeniedException("当前账号无法登录后台");
+        }
 
         List<GrantedAuthority> userAuthority = getUserAuthority(cakeUser);
 

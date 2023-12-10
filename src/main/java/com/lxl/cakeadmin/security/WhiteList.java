@@ -21,4 +21,8 @@ public interface WhiteList {
             "/webjars/**"
     };
 
+    Integer[] ROLE_WHITELIST={
+            1
+    };
+
 }

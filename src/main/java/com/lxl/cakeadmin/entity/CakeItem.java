@@ -32,6 +32,14 @@ public class CakeItem {
     private String cakeItemName;
 
     /**
+     * 配料图片
+     */
+    @TableField(value = "cake_item_photo")
+    @ApiModelProperty(value = "配料图片")
+    private String cakeItemPhoto;
+
+
+    /**
      * 配料价格
      */
     @TableField(value = "cake_item_price")

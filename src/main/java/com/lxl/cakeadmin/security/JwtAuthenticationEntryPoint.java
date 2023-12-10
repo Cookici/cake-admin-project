@@ -3,6 +3,7 @@ package com.lxl.cakeadmin.security;
 
 import com.alibaba.fastjson2.JSON;
 import com.lxl.cakeadmin.result.Result;
+import com.lxl.cakeadmin.result.ResultCodeEnum;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
@@ -34,7 +35,7 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
         response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
         ServletOutputStream outputStream = response.getOutputStream();
 
-        Result<String> result = Result.fail("请先登录！");
+        Result<String> result = Result.fail("请先登录！").code(ResultCodeEnum.NO_LOGIN.getCode()).message(ResultCodeEnum.NO_LOGIN.getMessage());
         outputStream.write(JSON.toJSONString(result).getBytes(StandardCharsets.UTF_8));
         outputStream.flush();
         outputStream.close();

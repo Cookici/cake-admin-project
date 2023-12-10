@@ -3,6 +3,7 @@ package com.lxl.cakeadmin.vo;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -17,9 +18,12 @@ import java.util.List;
 public class CakeUserVo {
     Long cakeUserId;
     String cakeUserUsername;
+    String cakeUserAvatar;
     String cakeUserNickName;
     List<GrantedAuthority> cakeUserAuthority;
     String cakeUserPhone;
     String cakeUserIp;
     Integer cakeUserLevel;
+    Integer cakeUserStatus;
+    Date createTime;
 }

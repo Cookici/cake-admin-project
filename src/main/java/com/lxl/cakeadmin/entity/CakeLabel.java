@@ -34,9 +34,9 @@ public class CakeLabel {
     /**
      * 标签样式
      */
-    @TableField(value = "cake_lable_icon")
+    @TableField(value = "cake_label_icon")
     @ApiModelProperty(value = "标签样式")
-    private String cakeLableIcon;
+    private String cakeLabelIcon;
 
     @TableField(value = "create_time")
     @ApiModelProperty(value = "")

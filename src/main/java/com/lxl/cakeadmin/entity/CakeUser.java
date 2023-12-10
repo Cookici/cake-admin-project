@@ -39,6 +39,13 @@ public class CakeUser {
     private String cakeUserPassword;
 
     /**
+     * 用户头像
+     */
+    @TableField(value = "cake_user_avatar")
+    @ApiModelProperty(value = "用户头像")
+    private String cakeUserAvatar;
+
+    /**
      * 用户昵称
      */
     @TableField(value = "cake_user_nick_name")

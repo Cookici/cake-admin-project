@@ -12,6 +12,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.util.AntPathMatcher;
 
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -64,6 +66,16 @@ class CakeAdminApplicationTests {
         JwtUtils jwtUtils = new JwtUtils();
 
         System.out.println(jwtUtils.generateToken("user"));
+
+    }
+
+    @Test
+    public void test03() throws URISyntaxException {
+
+        String old = "https://lrh-cake-project.oss-cn-beijing.aliyuncs.com/2023-12-09/af646566-a7dd-4290-aa79-2d2a5fc68290.jpg";
+        URI uri = new URI(old);
+        String path = uri.getPath();
+        System.out.println("path ===> " + path);
 
     }
 

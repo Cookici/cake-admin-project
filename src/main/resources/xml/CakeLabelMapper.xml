@@ -6,12 +6,12 @@
     <!--@Table cake_label-->
     <id column="cake_label_id" jdbcType="BIGINT" property="cakeLabelId" />
     <result column="cake_label_name" jdbcType="VARCHAR" property="cakeLabelName" />
-    <result column="cake_lable_icon" jdbcType="VARCHAR" property="cakeLableIcon" />
+    <result column="cake_label_icon" jdbcType="VARCHAR" property="cakeLabelIcon" />
     <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
     <result column="update_time" jdbcType="TIMESTAMP" property="updateTime" />
   </resultMap>
   <sql id="Base_Column_List">
     <!--@mbg.generated-->
-    cake_label_id, cake_label_name, cake_lable_icon, create_time, update_time
+    cake_label_id, cake_label_name, cake_label_icon, create_time, update_time
   </sql>
 </mapper>

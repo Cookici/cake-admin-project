@@ -39,7 +39,7 @@ public class OwnAspect {
 
 
     @Before("judgePointCut() && @annotation(own)")
-    public void beforeMethod(JoinPoint point, Own own) throws Throwable {
+    public void beforeMethod(JoinPoint point, Own own){
         HttpServletRequest request = ((ServletRequestAttributes) Objects.requireNonNull(RequestContextHolder.getRequestAttributes())).getRequest();
         String username = request.getParameter("username");
         String token = request.getHeader("Authorization");
