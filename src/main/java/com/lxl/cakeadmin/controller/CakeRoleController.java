@@ -11,9 +11,7 @@ import com.lxl.cakeadmin.vo.CakeUserVo;
 import com.lxl.cakeadmin.vo.PageVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -39,5 +37,40 @@ public class CakeRoleController {
         return Result.ok(page);
     }
 
+    @PostMapping("/add")
+    public Result<String> addRole(@RequestBody CakeRole cakeRole){
+        boolean save = cakeRoleService.save(cakeRole);
+        if(save){
+            return Result.ok("添加成功");
+        }
+        return Result.fail("添加失败");
+    }
+
+    @PutMapping("/edit")
+    public Result<String> updateRole(@RequestBody CakeRole cakeRole){
+        boolean update = cakeRoleService.updateById(cakeRole);
+        if(update){
+            return Result.ok("更新成功");
+        }
+        return Result.fail("更新失败");
+    }
+
+    @DeleteMapping("/delete")
+    public Result<String> removeRole(@RequestParam Long id){
+        boolean remove = cakeRoleService.removeById(id);
+        if (remove){
+            return Result.ok("删除成功");
+        }
+        return Result.fail("删除失败");
+    }
+
+    @DeleteMapping("/deleteList")
+    public Result<String> removeRoleByIds(@RequestParam List<Long> ids){
+        boolean remove = cakeRoleService.removeByIds(ids);
+        if (remove){
+            return Result.ok("删除成功");
+        }
+        return Result.fail("删除失败");
+    }
 
 }
