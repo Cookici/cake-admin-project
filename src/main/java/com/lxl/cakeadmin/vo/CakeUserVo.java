@@ -16,14 +16,14 @@ import java.util.List;
  */
 @Data
 public class CakeUserVo {
-    Long cakeUserId;
-    String cakeUserUsername;
-    String cakeUserAvatar;
-    String cakeUserNickName;
-    List<GrantedAuthority> cakeUserAuthority;
-    String cakeUserPhone;
-    String cakeUserIp;
-    Integer cakeUserLevel;
-    Integer cakeUserStatus;
-    Date createTime;
+    private Long cakeUserId;
+    private String cakeUserUsername;
+    private String cakeUserAvatar;
+    private  String cakeUserNickName;
+    private  List<GrantedAuthority> cakeUserAuthority;
+    private  String cakeUserPhone;
+    private String cakeUserIp;
+    private Integer cakeUserLevel;
+    private  Integer cakeUserStatus;
+    private  Date createTime;
 }

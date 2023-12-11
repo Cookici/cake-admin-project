@@ -6,9 +6,14 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lxl.cakeadmin.entity.CakeProduct;
 import com.lxl.cakeadmin.entity.CakeRole;
+import com.lxl.cakeadmin.entity.CakeUser;
 import com.lxl.cakeadmin.result.Result;
 import com.lxl.cakeadmin.service.CakeProductService;
 import com.lxl.cakeadmin.service.OssService;
+import com.lxl.cakeadmin.utils.PageUtils;
+import com.lxl.cakeadmin.utils.TransObjectUtils;
+import com.lxl.cakeadmin.vo.CakeProductVo;
+import com.lxl.cakeadmin.vo.CakeUserVo;
 import com.lxl.cakeadmin.vo.PageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,16 +44,34 @@ public class CakeProductController {
     @Autowired
     private OssService ossService;
 
+    @Autowired
+    private TransObjectUtils transObjectUtils;
+
+    @Autowired
+    private PageUtils<CakeProductVo, CakeProduct> pageUtils;
+
     @GetMapping("/list")
-    public Result<IPage<CakeProduct>> getProductList(PageVo pageVo) {
+    public Result<IPage<CakeProductVo>> getProductList(PageVo pageVo) {
         log.info("keyword ===> {}", pageVo.getKeyword());
         Page<CakeProduct> page;
+        List<CakeProductVo> cakeProductVoList = new ArrayList<>();
         if (Objects.equals(pageVo.getKeyword(), "")) {
             page = cakeProductService.page(new Page<>(pageVo.getCurrent(), pageVo.getSize()), new LambdaQueryWrapper<CakeProduct>().orderByDesc(CakeProduct::getCreateTime));
+            List<CakeProduct> cakeProductList = page.getRecords();
+            for (CakeProduct cakeProduct : cakeProductList) {
+                CakeProductVo cakeProductVo = transObjectUtils.cakeProductTransToCakeProductVo(cakeProduct);
+                cakeProductVoList.add(cakeProductVo);
+            }
         } else {
             page = cakeProductService.page(new Page<>(pageVo.getCurrent(), pageVo.getSize()), new LambdaQueryWrapper<CakeProduct>().orderByDesc(CakeProduct::getCreateTime).like(CakeProduct::getCakeProductName, pageVo.getKeyword()));
+            List<CakeProduct> cakeProductList = page.getRecords();
+            for (CakeProduct cakeProduct : cakeProductList) {
+                CakeProductVo cakeProductVo = transObjectUtils.cakeProductTransToCakeProductVo(cakeProduct);
+                cakeProductVoList.add(cakeProductVo);
+            }
         }
-        return Result.ok(page);
+        IPage<CakeProductVo> cakeUserVoPage = pageUtils.getVoPage(cakeProductVoList, page);
+        return Result.ok(cakeUserVoPage);
     }
 
     @PostMapping("/add")
