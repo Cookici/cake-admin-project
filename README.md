@@ -82,6 +82,7 @@ Vue3+Vite+TypeScript
 
 ### 使用到的框架
 - SpringBoot 2.6.13
+- SpringSecurity
 - MySQL 8.0.30
 - MyBatis-Plus 3.5.0
 
