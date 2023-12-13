@@ -95,8 +95,7 @@ public class SensitiveOperationsAspect {
             for (Object arg : args) {
                 if (arg instanceof CakeUser) {
                     CakeUser optionUser = (CakeUser) arg;
-                    CakeUser cakeUser = cakeUserService.getById(optionUser.getCakeUserId());
-                    CakeRole optionUserRole = cakeRoleService.getById(cakeUser.getCakeRoleId());
+                    CakeRole optionUserRole = cakeRoleService.getById(optionUser.getCakeRoleId());
                     CakeUser executeCakeUser = cakeUserService.selectUserByUsername(subject);
                     CakeRole executeUserRole = cakeRoleService.getById(executeCakeUser.getCakeRoleId());
                     if (optionUserRole.getCakeRoleLevel() >= executeUserRole.getCakeRoleLevel()) {
