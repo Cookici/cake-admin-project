@@ -1,26 +1,21 @@
 package com.lxl.cakeadmin.controller;
 
-import com.aliyun.oss.OSS;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.lxl.cakeadmin.entity.CakeProduct;
-import com.lxl.cakeadmin.entity.CakeRole;
-import com.lxl.cakeadmin.entity.CakeUser;
 import com.lxl.cakeadmin.result.Result;
 import com.lxl.cakeadmin.service.CakeProductService;
 import com.lxl.cakeadmin.service.OssService;
 import com.lxl.cakeadmin.utils.PageUtils;
 import com.lxl.cakeadmin.utils.TransObjectUtils;
 import com.lxl.cakeadmin.vo.CakeProductVo;
-import com.lxl.cakeadmin.vo.CakeUserVo;
 import com.lxl.cakeadmin.vo.PageVo;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 
-import java.net.URI;
-import java.net.URISyntaxException;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
@@ -50,6 +45,7 @@ public class CakeProductController {
     @Autowired
     private PageUtils<CakeProductVo, CakeProduct> pageUtils;
 
+    @PreAuthorize("hasAnyAuthority('product:list') or hasAnyAuthority('product:*')")
     @GetMapping("/list")
     public Result<IPage<CakeProductVo>> getProductList(PageVo pageVo) {
         log.info("keyword ===> {}", pageVo.getKeyword());
@@ -74,6 +70,7 @@ public class CakeProductController {
         return Result.ok(cakeUserVoPage);
     }
 
+    @PreAuthorize("hasAnyAuthority('product:add') or hasAnyAuthority('product:*')")
     @PostMapping("/add")
     public Result<String> addProduct(@RequestBody CakeProduct cakeProduct) {
         boolean save = cakeProductService.save(cakeProduct);
@@ -83,6 +80,7 @@ public class CakeProductController {
         return Result.fail("添加失败");
     }
 
+    @PreAuthorize("hasAnyAuthority('product:edit') or hasAnyAuthority('product:*')")
     @PutMapping("/edit")
     public Result<String> updateProduct(@RequestBody CakeProduct cakeProduct) {
         boolean update = cakeProductService.updateById(cakeProduct);
@@ -93,6 +91,7 @@ public class CakeProductController {
         return Result.fail("更新失败");
     }
 
+    @PreAuthorize("hasAnyAuthority('product:delete') or hasAnyAuthority('product:*')")
     @DeleteMapping("/delete")
     public Result<String> removeProduct(@RequestParam Long id) {
         CakeProduct cakeProduct = cakeProductService.getById(id);
@@ -106,7 +105,7 @@ public class CakeProductController {
         return Result.fail("删除失败");
     }
 
-
+    @PreAuthorize("hasAnyAuthority('product:deleteList') or hasAnyAuthority('product:*')")
     @DeleteMapping("/deleteList")
     public Result<String> removeProductByIds(@RequestParam List<Long> ids) {
         List<CakeProduct> cakeProducts = cakeProductService.listByIds(ids);

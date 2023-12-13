@@ -11,6 +11,8 @@ package com.lxl.cakeadmin.common;
 
 public interface Constant {
 
-    String ADMIN =  "admin";
+    String ROLE = "role";
+    String USER = "user";
+    String PERMIT = "permit";
 
 }

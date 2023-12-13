@@ -2,14 +2,11 @@ package com.lxl.cakeadmin.utils;
 
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.lxl.cakeadmin.entity.CakeLabel;
-import com.lxl.cakeadmin.entity.CakeProduct;
-import com.lxl.cakeadmin.entity.CakeProductLabel;
-import com.lxl.cakeadmin.entity.CakeUser;
+import com.lxl.cakeadmin.entity.*;
 import com.lxl.cakeadmin.security.UserDetailsService;
-import com.lxl.cakeadmin.service.CakeLabelService;
-import com.lxl.cakeadmin.service.CakeProductLabelService;
+import com.lxl.cakeadmin.service.*;
 import com.lxl.cakeadmin.vo.CakeProductVo;
+import com.lxl.cakeadmin.vo.CakeRoleVo;
 import com.lxl.cakeadmin.vo.CakeUserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
@@ -37,6 +34,15 @@ public class TransObjectUtils {
     @Autowired
     private CakeLabelService cakeLabelService;
 
+    @Autowired
+    private CakeRoleService cakeRoleService;
+
+    @Autowired
+    private CakeRolePermitService cakeRolePermitService;
+
+    @Autowired
+    private CakePermitService cakePermitService;
+
     public CakeUserVo cakeUserTransToCakeUserVo(CakeUser cakeUser) {
         CakeUserVo cakeUserVo = new CakeUserVo();
         cakeUserVo.setCakeUserId(cakeUser.getCakeUserId());
@@ -49,8 +55,11 @@ public class TransObjectUtils {
         cakeUserVo.setCakeUserAuthority(userDetailsService.getUserAuthority(cakeUser));
         cakeUserVo.setCakeUserStatus(cakeUser.getCakeUserStatus());
         cakeUserVo.setCreateTime(cakeUser.getCreateTime());
+        CakeRole cakeRole = cakeRoleService.getById(cakeUser.getCakeRoleId());
+        cakeUserVo.setCakeRole(cakeRole);
         return cakeUserVo;
     }
+
 
     public CakeProductVo cakeProductTransToCakeProductVo(CakeProduct cakeProduct) {
         List<CakeProductLabel> list = cakeProductLabelService.list(new LambdaQueryWrapper<CakeProductLabel>().eq(CakeProductLabel::getCakeProductId, cakeProduct.getCakeProductId()));
@@ -70,6 +79,27 @@ public class TransObjectUtils {
         cakeProductVo.setCreateTime(cakeProduct.getCreateTime());
         cakeProductVo.setCakeLabelList(cakeLabels);
         return cakeProductVo;
+    }
+
+
+    public CakeRoleVo cakeRoleTransToCakeRoleVo(CakeRole cakeRole) {
+        List<CakeRolePermit> list = cakeRolePermitService.list(new LambdaQueryWrapper<CakeRolePermit>().eq(CakeRolePermit::getCakeRoleId, cakeRole.getCakeRoleId()));
+        List<Long> ids = new ArrayList<>();
+        list.forEach(cakeRolePermit -> ids.add(cakeRolePermit.getCakePermitId()));
+        List<CakePermit> cakePermits;
+        if (ids.isEmpty()) {
+            cakePermits = null;
+        } else {
+            cakePermits = cakePermitService.listByIds(ids);
+        }
+        CakeRoleVo cakeRoleVo = new CakeRoleVo();
+        cakeRoleVo.setCakeRoleId(cakeRole.getCakeRoleId());
+        cakeRoleVo.setCakeRoleName(cakeRole.getCakeRoleName());
+        cakeRoleVo.setCakeRoleDescription(cakeRole.getCakeRoleDescription());
+        cakeRoleVo.setCakeRoleLevel(cakeRole.getCakeRoleLevel());
+        cakeRoleVo.setCakePermitList(cakePermits);
+        cakeRoleVo.setCreateTime(cakeRole.getCreateTime());
+        return cakeRoleVo;
     }
 
 

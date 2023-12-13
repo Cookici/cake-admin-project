@@ -1,14 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxl.cakeadmin.mapper.CakeRoleMapper">
-  <resultMap id="BaseResultMap" type="com.lxl.cakeadmin.entity.CakeRole">
-    <!--@mbg.generated-->
-    <!--@Table cake_role-->
-    <id column="cake_role_id" jdbcType="INTEGER" property="cakeRoleId" />
-    <result column="cake_role_name" jdbcType="VARCHAR" property="cakeRoleName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    cake_role_id, cake_role_name
-  </sql>
+    <resultMap id="BaseResultMap" type="com.lxl.cakeadmin.entity.CakeRole">
+        <!--@mbg.generated-->
+        <!--@Table cake_role-->
+        <id column="cake_role_id" jdbcType="INTEGER" property="cakeRoleId"/>
+        <result column="cake_role_name" jdbcType="VARCHAR" property="cakeRoleName"/>
+        <result column="cake_role_description" jdbcType="VARCHAR" property="cakeRoleDescription"/>
+        <result column="cake_role_level" jdbcType="INTEGER" property="cakeRoleLevel"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        cake_role_id,
+        cake_role_name,
+        cake_role_description,
+        cake_role_level,
+        create_time
+    </sql>
 </mapper>

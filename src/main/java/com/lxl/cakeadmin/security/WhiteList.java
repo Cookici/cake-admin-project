@@ -22,7 +22,8 @@ public interface WhiteList {
     };
 
     Integer[] ROLE_WHITELIST={
-            1
+            1,
+            3
     };
 
 }

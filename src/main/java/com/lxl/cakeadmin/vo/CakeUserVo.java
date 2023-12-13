@@ -1,5 +1,6 @@
 package com.lxl.cakeadmin.vo;
 
+import com.lxl.cakeadmin.entity.CakeRole;
 import lombok.Data;
 import org.springframework.security.core.GrantedAuthority;
 
@@ -26,4 +27,5 @@ public class CakeUserVo {
     private Integer cakeUserLevel;
     private  Integer cakeUserStatus;
     private  Date createTime;
+    private CakeRole cakeRole;
 }

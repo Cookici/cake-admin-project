@@ -1,14 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lxl.cakeadmin.mapper.CakePermitMapper">
-  <resultMap id="BaseResultMap" type="com.lxl.cakeadmin.entity.CakePermit">
-    <!--@mbg.generated-->
-    <!--@Table cake_permit-->
-    <id column="cake_permit_id" jdbcType="BIGINT" property="cakePermitId" />
-    <result column="cake_permit_name" jdbcType="VARCHAR" property="cakePermitName" />
-  </resultMap>
-  <sql id="Base_Column_List">
-    <!--@mbg.generated-->
-    cake_permit_id, cake_permit_name
-  </sql>
+    <resultMap id="BaseResultMap" type="com.lxl.cakeadmin.entity.CakePermit">
+        <!--@mbg.generated-->
+        <!--@Table cake_permit-->
+        <id column="cake_permit_id" jdbcType="BIGINT" property="cakePermitId"/>
+        <result column="cake_permit_name" jdbcType="VARCHAR" property="cakePermitName"/>
+        <result column="cake_permit_description" jdbcType="VARCHAR" property="cakePermitDescription"/>
+        <result column="create_time" jdbcType="TIMESTAMP" property="createTime"/>
+    </resultMap>
+    <sql id="Base_Column_List">
+        <!--@mbg.generated-->
+        cake_permit_id,
+        cake_permit_name,
+        cake_permit_description,
+        create_time
+    </sql>
 </mapper>

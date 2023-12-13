@@ -1,18 +1,14 @@
 package com.lxl.cakeadmin.security;
 
-import com.alibaba.fastjson2.JSON;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.lxl.cakeadmin.common.Constant;
 import com.lxl.cakeadmin.entity.CakePermit;
 import com.lxl.cakeadmin.entity.CakeRolePermit;
 import com.lxl.cakeadmin.entity.CakeUser;
-import com.lxl.cakeadmin.mapper.CakeRolePermitMapper;
 import com.lxl.cakeadmin.service.CakePermitService;
 import com.lxl.cakeadmin.service.CakeRolePermitService;
 import com.lxl.cakeadmin.service.CakeUserService;
 import com.lxl.cakeadmin.utils.MatchUtils;
 import lombok.extern.slf4j.Slf4j;
-import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.AccessDeniedException;
 import org.springframework.security.core.GrantedAuthority;
@@ -23,7 +19,6 @@ import org.springframework.stereotype.Component;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * @ProjectName: cake-admin
@@ -72,6 +67,10 @@ public class UserDetailsServiceImpl implements UserDetailsService {
         List<CakeRolePermit> cakeRolePermitList = cakeRolePermitService.list(new LambdaQueryWrapper<CakeRolePermit>().eq(CakeRolePermit::getCakeRoleId, cakeUser.getCakeRoleId()));
         List<Long> permitIds = new ArrayList<>();
         cakeRolePermitList.forEach(cakeRolePermit -> permitIds.add(cakeRolePermit.getCakePermitId()));
+        if (permitIds.isEmpty()) {
+            log.info("authorities ===> 为空");
+            return AuthorityUtils.commaSeparatedStringToAuthorityList(null);
+        }
         List<CakePermit> cakePermits = cakePermitService.listByIds(permitIds);
         StringBuilder stringBuilder = new StringBuilder();
         for (int i = 0; i < cakePermits.size(); i++) {

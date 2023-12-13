@@ -10,7 +10,9 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-@ApiModel(description = "cake_permit")
+import java.util.Date;
+
+@ApiModel(description="cake_permit")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
@@ -20,10 +22,23 @@ public class CakePermit {
      * 权限ID
      */
     @TableId(value = "cake_permit_id", type = IdType.INPUT)
-    @ApiModelProperty(value = "权限ID")
+    @ApiModelProperty(value="权限ID")
     private Long cakePermitId;
 
     @TableField(value = "cake_permit_name")
-    @ApiModelProperty(value = "")
+    @ApiModelProperty(value="权限名称")
     private String cakePermitName;
+
+    @TableField(value = "cake_permit_description")
+    @ApiModelProperty(value="权限名称")
+    private String cakePermitDescription;
+
+
+    /**
+     * 创建时间
+     */
+    @TableField(value = "create_time")
+    @ApiModelProperty(value = "创建时间")
+    private Date createTime;
+
 }
