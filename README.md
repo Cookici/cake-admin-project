@@ -120,8 +120,8 @@ Vue3+Vite+TypeScript
 <br /><br />
 
 
-### cake-admin-project前端项目
-<a href="https://github.com/Cookici/cake-admin-vue3-project/tree/main">cake-admin-project</a>
+### cake-admin-vue3-project前端项目
+<a href="https://github.com/Cookici/cake-admin-vue3-project/tree/main">cake-admin-vue3-project</a>
 
 
 <br /><br />
