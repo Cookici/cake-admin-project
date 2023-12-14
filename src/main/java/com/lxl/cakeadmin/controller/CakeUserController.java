@@ -74,7 +74,10 @@ public class CakeUserController {
     @PreAuthorize("hasAnyAuthority('user:update') or hasAnyAuthority('user:*')")
     @PutMapping("/update")
     public Result<String> updateUserStatus(@RequestBody CakeUser cakeUser) {
-        boolean update = cakeUserService.updateById(cakeUser);
+        CakeUser nowCakeUser = new CakeUser();
+        nowCakeUser.setCakeUserId(cakeUser.getCakeUserId());
+        nowCakeUser.setCakeUserStatus(cakeUser.getCakeUserStatus());
+        boolean update = cakeUserService.updateById(nowCakeUser);
         if (update) {
             return Result.ok("改变用户成功");
         }
