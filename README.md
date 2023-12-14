@@ -20,7 +20,7 @@ Cake-admin系统后端，一个简单的权限和商品管理系统。有商品�
   <p align="center">
     cake-admin-project后端系统
     <br />
-    <a href="https://github.com/Cookici/cake-admin-project"><strong>cake-admin-project前端项目文档 »</strong></a>
+    <a href="https://github.com/Cookici/cake-admin-project"><strong>cake-admin-project后端项目文档 »</strong></a>
     <br />
     <br />
     <a href="https://github.com/Cookici/cake-admin-project">查看Demo</a>
